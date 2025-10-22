@@ -1,0 +1,41 @@
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-store/
+.env
+.env.development.local
+.env.test.local
+.env.production.local
+.env.local
+
+# NestJS
+/dist
+/.swagger-codegen
+/coverage
+/.nyc_output
+/logs
+
+# TypeScript
+*.tsbuildinfo
+*.log
+
+# Editor/IDE files
+.idea/ # IntelliJ IDEA
+.vscode/ # VSCode - only if you don't want to share project-specific settings
+*.swp # Vim swap files
+*.bak # Backup files
+*.sublime-project
+*.sublime-workspace
+
+# OS files
+.DS_Store # macOS
+Thumbs.db # Windows
+ehthumbs.db
+.cache/
+
+# Database
+*.sqlite
+*.sqlite-journal
+*.db
