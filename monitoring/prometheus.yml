@@ -1,0 +1,44 @@
+# 📊 Prometheus Configuration
+# Configuração para coleta de métricas da API Colmeia
+
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+rule_files:
+  # - "first_rules.yml"
+  # - "second_rules.yml"
+
+scrape_configs:
+  # ===========================================
+  # 🚀 Colmeia API Metrics
+  # ===========================================
+  - job_name: 'colmeia-api'
+    static_configs:
+      - targets: ['api:3000']
+    metrics_path: '/api/v1/metrics/prometheus'
+    scrape_interval: 5s
+    scrape_timeout: 5s
+
+  # ===========================================
+  # 🗄️ PostgreSQL Metrics
+  # ===========================================
+  - job_name: 'postgres'
+    static_configs:
+      - targets: ['postgres:5432']
+    scrape_interval: 30s
+
+  # ===========================================
+  # 📊 Redis Metrics
+  # ===========================================
+  - job_name: 'redis'
+    static_configs:
+      - targets: ['redis:6379']
+    scrape_interval: 30s
+
+  # ===========================================
+  # 🔍 Prometheus Self-Monitoring
+  # ===========================================
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']

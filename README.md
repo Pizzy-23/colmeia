@@ -30,7 +30,6 @@
 - [📊 Estrutura do Projeto](#-estrutura-do-projeto)
 - [🏆 Features](#-features)
 - [📈 Performance](#-performance)
-- [🤝 Contribuição](#-contribuição)
 
 ---
 
@@ -99,30 +98,51 @@ O projeto segue os princípios da **Arquitetura Hexagonal** (Ports & Adapters), 
 
 ## 📦 Instalação
 
-### Pré-requisitos
+### 🚀 **Opção 1: Docker (Recomendado)**
+
+A forma mais fácil e garantida de funcionar em qualquer PC:
+
+```bash
+# 1. Clone o repositório
+git clone <repository-url>
+cd colmeia
+
+# 2. Execute o setup automático
+chmod +x scripts/setup.sh
+./scripts/setup.sh
+
+# 3. Acesse a aplicação
+# http://localhost:3000/api/docs
+```
+
+### 🛠️ **Opção 2: Instalação Manual**
+
+Se preferir instalar manualmente:
+
+#### Pré-requisitos
 
 - **Node.js** 18+ 
 - **PostgreSQL** 13+
-- **yarn** ou **yarn**
+- **yarn** ou **npm**
 
-### 1. Clone o Repositório
+#### 1. Clone o Repositório
 
-```bash
+    ```bash
 git clone <repository-url>
 cd colmeia
-```
-
-### 2. Instale as Dependências
-
-    ```bash
-yarn install
-# ou
-yarn install
     ```
 
-### 3. Configure o Banco de Dados
+#### 2. Instale as Dependências
 
     ```bash
+    yarn install
+# ou
+npm install
+```
+
+#### 3. Configure o Banco de Dados
+
+  ```bash
 # Crie o banco de dados
 createdb colmeia_test
 
@@ -130,7 +150,7 @@ createdb colmeia_test
 cp .env.example .env
 ```
 
-### 4. Configure as Variáveis de Ambiente
+#### 4. Configure as Variáveis de Ambiente
 
 Edite o arquivo `.env`:
 
@@ -151,6 +171,20 @@ PORT=3000
 NODE_ENV=development
 ```
 
+### 🐳 **Docker Compose (Stack Completa)**
+
+Para uma experiência completa com monitoramento:
+
+  ```bash
+# Iniciar todos os serviços
+docker-compose up -d
+
+# Acessar aplicações:
+# - API: http://localhost:3000/api/docs
+# - Prometheus: http://localhost:9090
+# - Grafana: http://localhost:3001 (admin/admin)
+```
+
 ---
 
 ## ⚙️ Configuração
@@ -163,7 +197,7 @@ yarn run start:dev
 
 # Build para produção
 yarn run build
-yarn run start:prod
+  yarn run start:prod
 
 # Testes
 yarn run test              # Todos os testes
@@ -211,7 +245,7 @@ A aplicação estará disponível em: `http://localhost:3000`
 
   ```bash
 # Todos os testes
-yarn run test
+  yarn run test
 
 # Testes unitários
 yarn run test:unit
@@ -436,6 +470,92 @@ src/
 - ✅ **Execução sequencial** de testes
 - ✅ **Cleanup automático** de dados
 
+---
+
+## 🔧 Troubleshooting
+
+### ❌ **Problemas Comuns**
+
+Se algo não funcionar, consulte nosso [**Guia de Troubleshooting**](TROUBLESHOOTING.md) completo!
+
+#### 🐳 **Docker não funciona?**
+```bash
+# Verificar se Docker está rodando
+docker --version
+docker-compose --version
+
+# Reiniciar Docker
+sudo systemctl restart docker  # Linux
+# Ou reiniciar Docker Desktop
+```
+
+#### 🗄️ **Banco de dados não conecta?**
+```bash
+# Verificar se PostgreSQL está rodando
+docker-compose ps postgres
+
+# Ver logs
+docker-compose logs postgres
+
+# Recriar banco
+docker-compose down -v
+docker-compose up -d
+```
+
+#### 📦 **Dependências não instalam?**
+```bash
+# Limpar cache
+rm -rf node_modules yarn.lock
+yarn install
+
+# Ou usar npm
+rm -rf node_modules package-lock.json
+npm install
+```
+
+#### 🧪 **Testes falham?**
+```bash
+# Aguardar banco estar pronto
+sleep 10
+
+# Executar com timeout maior
+yarn test:e2e --testTimeout=120000
+```
+
+### 🆘 **Solução Rápida**
+
+Se nada funcionar, use o Docker:
+
+```bash
+# 1. Clone e entre no diretório
+git clone <repo-url>
+cd colmeia
+
+# 2. Execute setup automático
+chmod +x scripts/setup.sh
+./scripts/setup.sh
+
+# 3. Pronto! Acesse: http://localhost:3000/api/docs
+```
+
+### 📞 **Ainda com problemas?**
+
+1. **Verifique os logs:**
+   ```bash
+   docker-compose logs api
+   docker-compose logs postgres
+   ```
+
+2. **Reset completo:**
+   ```bash
+   docker-compose down -v
+   docker system prune -a
+   ./scripts/setup.sh
+   ```
+
+3. **Consulte o [TROUBLESHOOTING.md](TROUBLESHOOTING.md)** para soluções detalhadas
+
+---
 
 ## 📄 Licença
 
